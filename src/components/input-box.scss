@@ -1,0 +1,16 @@
+.inputBox {
+    padding: 10px 5px;
+    width: 400px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    font-family: 'Courier New', Courier, monospace;
+
+    &.invalid {
+        border: 1px solid red;
+    }
+
+    &:focus, textarea:focus, select:focus {
+        outline: none;
+        border: 1px solid black;
+    }
+}

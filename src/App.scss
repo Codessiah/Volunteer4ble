@@ -1,0 +1,55 @@
+body {
+    margin: 0;
+    font-family: 'Otomanopee One', sans-serif;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+main {
+    height: calc(100vh - 70px);
+}
+
+button {
+    font-family: 'Otomanopee One', sans-serif;
+    background-color: black;
+    color: white;
+    border: 0;
+    width: fit-content;
+    padding: 10px 30px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: large;
+}
+
+h1 { margin: 0 }
+h3 { margin: 0 }
+p { margin: 0 }
+
+*[disabled] {
+    pointer-events: none;
+}
+
+.overlay {
+    position: fixed;
+    top: 70px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: black;
+    opacity: 0.5;
+    z-index: 5;
+}
+
+.hideSafely { 
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}

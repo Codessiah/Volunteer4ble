@@ -1,0 +1,73 @@
+.nameBox {
+    margin: 10px 0;
+    padding: 5px;
+    border-radius: 5px;
+    transition: 0.2s;
+    cursor: pointer;
+
+    &.focused {
+        background-color: black;
+        color: white;
+    }
+
+    i {
+        transition: 0.2s;
+        border: 0 solid white;
+    }
+
+    &:hover {
+        i {
+            border-width: 0 3px 3px 0;
+            display: inline-block;
+            padding: 3px;
+            margin-right: 8px;
+
+            &.up {
+                transform: rotate(-135deg);
+            }
+              
+            &.down {
+                transform: rotate(45deg);
+            }
+        }
+    }
+
+    &:not(.focused):hover {
+        background-color: rgb(214, 214, 214);
+    }
+
+    form {
+        input {
+            width: 100%;
+            background-color: transparent;
+            border: 0;
+            color: white;
+            font-family: 'Otomanopee One', sans-serif;
+            font-size: medium;
+            padding: 0;
+
+            &:focus, textarea:focus, select:focus {
+                outline: none;
+                border: 0;
+            }
+        }
+    }
+
+    & > div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .text {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .arrows {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
