@@ -37,7 +37,7 @@ export default function ActivityBox({ index, actIndex, setActIndex, openProof, d
             <div title={children.hours}><p>{children.hours}</p></div>
             <div>
                 <span onClick={() => setActIndex(index)} title="Edit">🔧</span>
-                <span onClick={() => openProof(index)} title="Proof">📁</span>
+                <span onClick={() => openProof(index)} title="Proof">{children.proof ? "🗂️" : "📁"}</span>
                 <span onClick={() => deleteActivity(index)} title="Delete">❌</span>
             </div>
         </>

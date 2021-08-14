@@ -31,8 +31,10 @@ export default function Progress() {
         let s = 0;
 
         for (let log of userData.logs) {
-            for (let act of log.activities) {
-                s += act.hours;
+            if (log.includeGoal) {
+                for (let act of log.activities) {
+                    s += act.hours;
+                }
             }
         }
 

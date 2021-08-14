@@ -139,7 +139,13 @@ export default function Logs() {
         window.frames["toprint"].onafterprint = () => printFrame.remove();
     };
 
-    const deleteLog = () => {
+    const deleteLog = (e) => {
+        if (userData.logs[logIndex].activities.length > 0 && !e.shiftKey) {
+            let ask = confirm(`Are you sure you want to remove ${userData.logs[logIndex].name}`);
+
+            if (!ask) return;
+        }
+
         let copy = { ...userData };
         copy.logs.splice(logIndex, 1);
         setUserData(copy);

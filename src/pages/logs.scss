@@ -85,7 +85,7 @@
                 display: grid;
                 grid-template-columns: 1fr 2fr 1fr 1fr;
                 column-gap: 10px;
-                grid-template-rows: 50px repeat(auto-fill, 30px);
+                grid-template-rows: repeat(auto-fit, minmax(auto, 1px)) 50px;
                 overflow: auto;
 
                 input {
@@ -117,6 +117,8 @@
                     span {
                         cursor: pointer;
                     }
+
+                    &:not(.header) { padding: 5px 0 }
                 }
     
                 .header {

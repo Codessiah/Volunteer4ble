@@ -62,6 +62,8 @@ export default function Register() {
 
     return (
         <div className="register">
+            <h1>Sign Up</h1>
+
             <form onSubmit={formSubmit}>
                 <div className="set1">
                     <InputBox name="email" type="text" placeholder="Email..." invalid={unfilled === 0} />

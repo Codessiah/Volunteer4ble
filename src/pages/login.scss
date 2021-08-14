@@ -5,6 +5,10 @@
     justify-content: center;
     flex-direction: column;
 
+    & > h1 {
+        margin-bottom: 30px;
+    }
+
     form {
         display: flex;
         flex-direction: column;
