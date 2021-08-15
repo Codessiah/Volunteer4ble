@@ -85,7 +85,8 @@
                 display: grid;
                 grid-template-columns: 1fr 2fr 1fr 1fr;
                 column-gap: 10px;
-                grid-template-rows: repeat(auto-fit, minmax(auto, 1px)) 50px;
+                grid-template-rows: 50px;
+                grid-auto-rows: 30px;
                 overflow: auto;
 
                 input {
@@ -107,6 +108,7 @@
                     min-width: 0;
                     align-items: center;
                     justify-content: center;
+                    min-height: 0;
     
                     p {
                         text-overflow: ellipsis;
@@ -150,11 +152,7 @@
                     border-radius: 15px;
                     transition: 0.2s;
 
-                    &:nth-child(2) { background-color: red }
-
-                    &:nth-child(2).on { background-color: green }
-
-                    &:nth-child(4) { background-color: red }
+                    &:nth-child(3) { background-color: red }
                 }
             }
         }

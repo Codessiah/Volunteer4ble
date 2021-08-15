@@ -20,25 +20,61 @@ export default function Logs() {
     let [proofIndex, setProofIndex] = useState(-1);
     let [download, setDownload] = useState(undefined);
 
-    const addLog = () => {
+    const addLog = (firstTime) => {
         let copy = { ...userData };
-        copy.logs.push({
-            name: "Unnamed log",
-            includeGoal: true,
-            activities: []
-        });
+
+        if (firstTime) {
+            copy.logs = [
+                {
+                    name: "Template 2021 Log",
+                    includeGoal: false,
+                    activities: [
+                        {
+                            org: "Amazing.org",
+                            task: "Tutor Natasha",
+                            hours: 5,
+                            proof: null
+                        },
+                        {
+                            org: "Awesome.org",
+                            task: "Pick up trash",
+                            hours: 1,
+                            proof: null
+                        }
+                    ]
+                },
+                {
+                    name: "Template 2020 Log",
+                    includeGoal: false,
+                    activities: [
+                        {
+                            org: "Handsome.org",
+                            task: "Free music concert, has proof",
+                            hours: 2,
+                            proof: "TEMPLATE"
+                        },
+                        {
+                            org: "Beautiful.org",
+                            task: "Life is beautiful",
+                            hours: 0.5,
+                            proof: null
+                        }
+                    ]
+                }
+            ];
+        }
+        else {
+            copy.logs.push({
+                name: "Unnamed log",
+                includeGoal: true,
+                activities: []
+            });
+        }
+
         setUserData(copy);
 
         if (logIndex <= -1) setLogIndex(0);
         if (logIndex >= userData.logs.length) setLogIndex(logIndex - 1);
-
-        users.doc(user.uid).update(copy);
-    };
-
-    const includeLog = () => {
-        let copy = { ...userData };
-        copy.logs[logIndex].includeGoal = !copy.logs[logIndex].includeGoal;
-        setUserData(copy);
 
         users.doc(user.uid).update(copy);
     };
@@ -84,6 +120,7 @@ export default function Logs() {
                             grid-template-columns: 1fr 2fr 1fr;
                             column-gap: 10px;
                             grid-template-rows: 50px;
+                            grid-auto-rows: 30px;
                             padding: 10px;
                         }
 
@@ -102,6 +139,7 @@ export default function Logs() {
                             text-overflow: ellipsis;
                             overflow: hidden;
                             white-space: nowrap;
+                            min-height: 0;
                         }
                     </style>
                 </head>
@@ -141,7 +179,7 @@ export default function Logs() {
 
     const deleteLog = (e) => {
         if (userData.logs[logIndex].activities.length > 0 && !e.shiftKey) {
-            let ask = confirm(`Are you sure you want to remove ${userData.logs[logIndex].name}`);
+            let ask = confirm(`Are you sure you want to remove '${userData.logs[logIndex].name}' ?`);
 
             if (!ask) return;
         }
@@ -178,7 +216,11 @@ export default function Logs() {
     };
 
     const openProof = async (index) => {
-        if (userData.logs[logIndex].activities[index].proof) {
+        if (userData.logs[logIndex].activities[index].proof === "TEMPLATE") {
+            let url = await storage.parent.child("templateimg.png").getDownloadURL();
+            setDownload(url);
+        }
+        else if (userData.logs[logIndex].activities[index].proof) {
             let url = await storage.child(userData.logs[logIndex].activities[index].proof).getDownloadURL();
             setDownload(url);
         }
@@ -187,7 +229,7 @@ export default function Logs() {
     };
 
     const resetProof = () => {
-        storage.child(userData.logs[logIndex].activities[proofIndex].proof).delete();
+        if (userData.logs[logIndex].activities[index].proof !== "TEMPLATE") storage.child(userData.logs[logIndex].activities[proofIndex].proof).delete();
 
         let copy = { ...userData };
         copy.logs[logIndex].activities[proofIndex].proof = null;
@@ -245,7 +287,7 @@ export default function Logs() {
                 <div className="container" disabled={proofIndex > -1}>
                     <div className="tabs" disabled={actIndex > -1}>
                         {userData.logs.map((v, i) => <NameBox index={i} focus={i === logIndex} edit={i === editIndex} setLogIndex={setLogIndex} setEditIndex={setEditIndex}>{v.name}</NameBox>)}
-                        <div className="addButton" onClick={addLog}>+</div>
+                        <div className="addButton" onClick={() => addLog()}>+</div>
                     </div>
 
                     <div className="console">
@@ -263,17 +305,16 @@ export default function Logs() {
                         </div>
 
                         <div className="actions">
-                            <button onClick={() => addActivity()}>Add</button>
-                            <button className={(-1 < logIndex && logIndex < userData.logs.length) ? userData.logs[logIndex].includeGoal ? "on" : null : null} onClick={includeLog}>Include</button>
-                            <button onClick={printLog}>Print</button>
-                            <button onClick={deleteLog}>Delete</button>
+                            <button title="Add new activity." onClick={() => addActivity()}>Add</button>
+                            <button title="Print all activities in this log." onClick={printLog}>Print</button>
+                            <button title="Delete this log. Shift+Click to remove immediately." onClick={deleteLog}>Delete</button>
                         </div>
                     </div>
                 </div>
             ) : (
                 <div className="startOff">
                     <p>Start off by making your first log!</p>
-                    <button onClick={addLog}>Create</button>
+                    <button onClick={() => addLog(true)}>Create</button>
                 </div>
             )}
         </div>

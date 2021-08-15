@@ -1,0 +1,25 @@
+.logBox {
+    min-width: 0;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid rgb(200, 200, 200);
+    color: rgb(200, 200, 200);
+    cursor: pointer;
+
+    &[includeGoal=true] {
+        border: 1px solid black;
+        color: black;
+    }
+
+    h3 {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    p {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+}

@@ -32,12 +32,10 @@ export default function ActivityBox({ index, actIndex, setActIndex, openProof, d
 
     if (actIndex === -1) return (
         <>
-            <div title={children.org}><p>{children.org}</p></div>
-            <div title={children.task}><p>{children.task}</p></div>
-            <div title={children.hours}><p>{children.hours}</p></div>
+            <WordBoxes onDbl={() => setActIndex(index)}>{children}</WordBoxes>
             <div>
                 <span onClick={() => setActIndex(index)} title="Edit">🔧</span>
-                <span onClick={() => openProof(index)} title="Proof">{children.proof ? "🗂️" : "📁"}</span>
+                <span onClick={() => openProof(index)} title="Proof">{children.proof ? "🗂️" : "📷"}</span>
                 <span onClick={() => deleteActivity(index)} title="Delete">❌</span>
             </div>
         </>
@@ -45,10 +43,20 @@ export default function ActivityBox({ index, actIndex, setActIndex, openProof, d
 
     return (
         <>
-            <div title={children.org}><p>{children.org}</p></div>
-            <div title={children.task}><p>{children.task}</p></div>
-            <div title={children.hours}><p>{children.hours}</p></div>
+            <WordBoxes onDbl={() => setActIndex(index)}>{children}</WordBoxes>
             <div></div>
         </>
     )
+}
+
+function WordBoxes({ onDbl, children }) {
+    let { org, task, hours } = children;
+
+    return (
+        <>
+            <div title={org} onDoubleClick={onDbl}><p>{org}</p></div>
+            <div title={task} onDoubleClick={onDbl}><p>{task}</p></div>
+            <div title={hours} onDoubleClick={onDbl}><p>{hours}</p></div>
+        </>
+    );
 }

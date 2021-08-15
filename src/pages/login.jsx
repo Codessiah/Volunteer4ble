@@ -26,7 +26,7 @@ export default function Login() {
 
         try {
             await fapp.auth().signInWithEmailAndPassword(email, password);
-        } catch (error) { setErr(error); throw error; }
+        } catch (error) { setErr(error.message); }
 
         e.target.reset();
     }

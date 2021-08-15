@@ -4,6 +4,8 @@ import SiteContext from '../utils/site-context';
 import { useContext } from 'react';
 import { useState } from 'react';
 import { fapp } from '../utils/firebase';
+import { Link } from 'react-router-dom';
+import LogBox from '../components/log-box';
 
 const users = fapp.firestore().collection("users");
 
@@ -46,22 +48,36 @@ export default function Progress() {
 
     return (
         <div className="progress">
-            <div className="chart">
-                <ChartDonutUtilization
-                    constrainToVisibleArea={true}
-                    data={{ x: 'Finished hours', y: percentage }}
-                    subTitle={percentage !== 100 ? `${sum} / ${userData.goal}` : "You made it!"}
-                    title={`${percentage}%`}
-                    labels={({ datum }) => datum.x ? "Finished" : "Unfinished"}
-                />
+            <div className="graph">
+                <div className="chart">
+                    <ChartDonutUtilization
+                        constrainToVisibleArea={true}
+                        data={{ x: 'Finished hours', y: percentage }}
+                        subTitle={percentage !== 100 ? `${sum} / ${userData.goal}` : "You made it!"}
+                        title={`${percentage}%`}
+                        labels={({ datum }) => datum.x ? "Finished" : "Unfinished"}
+                    />
+                </div>
+
+                <h1>Configuration</h1>
+
+                <div className="conf">
+                    <button onClick={() => saveNum(num - 1)}>-</button>
+                    <input value={num} onChange={changeNum} />
+                    <button onClick={() => saveNum(num + 1)}>+</button>
+                </div>
             </div>
 
-            <h1>Configuration</h1>
-
-            <div className="conf">
-                <button onClick={() => saveNum(num - 1)}>-</button>
-                <input value={num} onChange={changeNum} />
-                <button onClick={() => saveNum(num + 1)}>+</button>
+            <div className="logs">
+                {userData.logs.length ? (
+                    <div>
+                        {userData.logs.map((v, i) => <LogBox log={v} index={i} />)}
+                    </div>
+                ) : (
+                    <div className="empty">
+                        <p>Seems empty... <Link className="link" to="/logs">Go create your first log.</Link></p>
+                    </div>
+                )}
             </div>
         </div>
     );

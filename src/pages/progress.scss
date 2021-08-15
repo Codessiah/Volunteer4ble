@@ -1,40 +1,71 @@
 .progress {
-    display: flex;
-    flex-direction: column;
     height: 100%;
-    justify-content: center;
-    align-items: center;
+    display: flex;
 
-    .chart {
-        width: 30%;
+    .graph {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 85%;
+        justify-content: center;
+        align-items: center;
+
+        .chart { width: 30%; }
+
+        .conf {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: larger;
+            margin-top: 5px;
+
+            button {
+                font-family: 'Courier New', Courier, monospace;
+                padding: 5px 10px;
+            }
+
+            input {
+                text-align: center;
+                font-family: 'Otomanopee One', sans-serif;
+                font-size: larger;
+                border: 0;
+                min-width: 0;
+                width: 100px;
+                padding: 0;
+                border: 1px solid white;
+                
+                &:focus, textarea:focus, select:focus {
+                    outline: none;
+                    border: 1px solid gray;
+                }
+            }
+        }
     }
 
-    .conf {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: larger;
-        margin-top: 5px;
+    .logs {
+        height: 100%;
+        width: 15%;
+        border-left: 1px solid black;
+        overflow: auto;
 
-        button {
-            font-family: 'Courier New', Courier, monospace;
-            padding: 5px 10px;
+        & > div:not(.empty) {
+            display: grid;
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+
+            grid-template-columns: 1fr;
+            grid-auto-rows: auto;
         }
 
-        input {
+        & > .empty {
+            margin: 15px;
             text-align: center;
-            font-family: 'Otomanopee One', sans-serif;
-            font-size: larger;
-            border: 0;
-            min-width: 0;
-            width: 100px;
-            padding: 0;
-            border: 1px solid white;
-            
-            &:focus, textarea:focus, select:focus {
-                outline: none;
-                border: 1px solid gray;
-            }
+        }
+
+        .link {
+            color: blue;
+            text-decoration: none;
         }
     }
 }

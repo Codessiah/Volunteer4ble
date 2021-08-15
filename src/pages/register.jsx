@@ -55,7 +55,7 @@ export default function Register() {
                 goal: 0,
                 logs: []
             });
-        } catch (error) { setErr(error); throw error; }
+        } catch (error) { setErr(error.message); }
 
         e.target.reset();
     }
